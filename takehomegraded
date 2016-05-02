@@ -1,0 +1,248 @@
+//Nanette Avignone
+//CST112 Midterm
+
+float x = 0;
+float y = 0;
+float surface;
+float xBoat;
+float yBoat;
+float xFish;
+float yFish;
+float xDweller = 0;
+float yDweller = 0;
+float dxBoat;
+float dyBoat;
+float dxFish; 
+float dyFish;
+float sxBoat;
+float syBoat;
+float score =0;
+
+
+
+//SETUP
+void setup()
+{
+  /*BAM:  check table adjusting to size.*/        size(777,444);
+  /*BAM:  check table adjusting to size.*/        size(666,777);
+
+  size ( 600, 600 );
+
+  surface = height/3;
+  xBoat = 100;
+  yBoat = surface/6;
+  xFish = 350;
+  yFish = 350;
+  dxBoat = 1;
+  dyBoat = 1;
+  //dxFish = 1;
+  // dyFish = 1;
+  dxFish= random (2, 5 );
+  dyFish= random (-3, 3 );
+}
+//DRAW
+void draw()
+{
+  scene();
+  boat();
+  moveboat();
+  fish();
+  movefish();
+  message();
+  dweller();
+
+
+  grading();              //// ADD THIS STATEMENT TO STUDENT CODE ////
+
+  
+}
+
+//SCENE
+void scene()
+{
+  background ( 0, 255, 255 );    //sky  
+  fill ( 0, 115, 0 );
+  rect ( x, surface, width, height );   //ocean
+}
+
+
+//DRAW BOAT
+void boat()
+{ 
+  stroke (255, 0, 0 );
+  fill ( 255, 0, 0 );  
+  rect (xBoat, surface, 100, -50 );    // boat
+  rect (xBoat+25, surface-50, 50, -25 );  //boat cabin  
+  fill (0);
+  text (" Titanic ", xBoat+25, yBoat+150 );   //boat name
+}
+
+//MOVE BOAT
+void moveboat()
+{
+  xBoat = xBoat + dxBoat;
+  if ( xBoat > width || xBoat < 0 )
+  {
+    dxBoat = dxBoat * - 1;
+  }
+  if ( dxBoat > 0 ) 
+  { 
+    stroke (255, 0, 0 );
+    fill ( 255, 0, 0 ); 
+    triangle (xBoat+100, surface, xBoat+100, 150, xBoat+150, 150 );  //boat bow
+  } else
+  {
+    stroke (255, 0, 0 );
+    fill ( 255, 0, 0 ); 
+    triangle (xBoat, surface, xBoat, 150, xBoat-50, 150 );  //boat bow
+  }
+}
+//DRAW FISH
+void fish()
+{
+  stroke ( 255, 192, 203 );
+  fill ( 255, 192, 203 );
+  ellipse ( xFish+45, yFish, 100, 50 );   
+  fill (0);
+  text (" Smelly ", xFish+15, yFish );
+}
+
+
+//MOVE FISH
+void movefish()
+
+
+{
+  xFish = xFish + dxFish;
+  // yFish = yFish + dyFish;
+  if ( xFish > width || xFish < 0 ) 
+  {
+
+    dxFish = dxFish * - 1;
+    dyFish = dyFish * - 1;
+  }  
+  if ( dxFish > 0 ) 
+  { 
+    stroke ( 255, 192, 203 );
+    fill ( 255, 192, 203 );
+    triangle ( xFish, yFish, xFish-50, yFish-25, xFish-50, yFish+25 ); //tail
+    fill (0);
+    ellipse (xFish+75, yFish-20, 10, 10 );            //eye
+  } else
+  {
+    stroke ( 255, 192, 203 );
+    fill ( 255, 192, 203 );
+    triangle ( xFish+75, yFish, xFish+135, yFish-25, xFish+135, yFish+25 ); //tail
+    fill (0);
+    ellipse (xFish+10, yFish-20, 10, 10 );            //eye
+  }
+}
+
+
+
+//DRAW BOTTOM DWELLER
+void dweller()
+{
+
+  stroke ( 50, 50, 50 );
+  strokeWeight (5);
+  fill ( 255, 255, 0 );  
+  ellipse ( xDweller+375, yDweller+550, 80, 40 );
+  line (  xDweller+320, yDweller+550, 335, 550 );
+  line (  xDweller+320, yDweller+550, 320, 575 );
+  line (  xDweller+415, yDweller+550, 430, 550 );
+  line (  xDweller+430, yDweller+550, 430, 575 );
+  fill (255, 255, 255 );
+  ellipse ( xDweller+350, yDweller+530, 10, 20 );
+  ellipse ( xDweller+400, yDweller+530, 10, 20 );
+  fill (0);
+  text (" Crabby ", xDweller+353, yDweller+547 );   //crabs name
+}
+
+//MESSAGES
+void message()
+{
+  fill (255, 255, 255 );
+  text ("Nanette Avignone, CST112 Midterm", 10, height-10);
+  fill(0); 
+  text ("Titanic =", 500, 50 );  
+  text ("Smelly =", 500, 70 );
+  text ("Crabby =", 500, 90 );
+}
+
+
+
+//TRYING TO CATCH FISH WITH NO LUCK
+// GO FISHING
+//void mousePressd()
+
+//{ 
+// xDweller; 
+// yDweller;
+//}
+
+
+// FISH CAUGHT
+//void fishing ()
+
+ // if (dist(xDweller, yDweller, xSmelly, ySmelly) < 10)
+//{
+ // score=  score + 100;
+//}
+
+
+
+
+
+
+//METHODS:  show, report//
+void report( String exam, String who, String letter, float total, String... g ) {
+    //// Display report ONLY while = key is pressed. ////      
+    if (keyPressed && key == '=') {
+      background(255,255,200);
+      //  Exam, who, letter, total. //
+      textSize(20);
+      fill( 250,0,150); 
+      text( exam+ " grading for:  "+who, 5,20 );
+      fill( 0,200,100); 
+      text( "Approx. letter-grade:  "+letter, 5,44 );
+      fill( 0,127,0 );
+      text( "Total score:  "+int(100*total)+"%", 5,68 );
+      textSize(10);
+      // Display each row of g[] //
+      int many=  g.length;
+      float y=100;
+      fill( 0,127,0);
+      int i=0;
+      while (i<many-1 ) {
+        // Split tokens into columns //
+        String t[]=  splitTokens( g[i++], " " );
+        int col=5;
+        for ( int j=0; j<t.length; j++ ) { 
+          text( t[j], col,y );  
+          col += 36;                // Next col
+        }
+        y += 16;                    // Next row.
+      }
+      // Last line for comments.
+      fill(0);
+      text( g[i], 50, y+40 );  
+    }else{
+      text( "Hold '=' key for grading.", width/2, height-5 );
+      return;
+    }
+}//report()//
+
+
+
+
+void grading(){  report( "T2", "Avignone", " C+", 0.77, "  Avignone  .  %  Tot.  SOFTWARE _    SCENE  .  BOAT  .  .  TUNA  .  CRAB  .  OBJECT  +  43  ",
+"   C+  .  .  5  syntax  read  sea  msgs  shape  turn  click...  shape  turn  jump  click...  class  .  T2  ",
+"  77%  .  .  5  mod  //  adjust  scores  move  Anim.  ..fish  bounce  Anim.  Anim.  ..hunt  .  19  19  ",
+"  T2  C+  77%  64  7  7  9  5  9  5  2.5  7  5  5  2.5  0  0.2  Avignone  ",
+"  No objects.\nNo animation.\n\nTuna does not bounce vertically.\nNo mousePressed() code.   (Partial credit for fishing/hinting attempt.)\n                                    " );}
+
+
+
+
+
